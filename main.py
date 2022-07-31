@@ -22,8 +22,8 @@ f = Field(3,3)
 f.create_field()
 
 class Player:
-    def __init__(self, sign):
-        self.sign = sign
+    def __init__(self):
+        self.sign = ["X", "O"]
         self._x = None
         self._y = None
     
@@ -46,19 +46,19 @@ class Player:
         self._y = y
         
 
-# player = Player("O")
+player = Player()
 
-# while True:
-#     try:
-#         player.x = int(input("Zadaj x-súradnicu: "))
-#         player.y = int(input("Zadaj y-súradnicu: "))
-#         if player.x in range(field.width) and player.y in range(field.height):
-#             print("Správne súradnice")
-#             break
-#     except ValueError:
-#         print("Nerozumiem")
+while True:
+    try:
+        player.x = int(input("Zadaj x-súradnicu: "))
+        player.y = int(input("Zadaj y-súradnicu: "))
+        if player.x in range(f.width) and player.y in range(f.height):
+            print("Správne súradnice")
+            break
+    except ValueError:
+        print("Nerozumiem")
     
-#     print("Súradnice mimo rozsahu")    
+    print("Súradnice mimo rozsahu")    
 
 
 # ROBIM COUNTER PRE KOLÁ - JEDNO KOLO OBIDVAJA HRÁČI ŤAHAJÚ, POSLEDNÉ KOLO BUDE ŤAHAŤ LEN JEDEN HRÁČ
