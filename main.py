@@ -3,6 +3,10 @@
 # print('Hráč 2')
 
 # field = []
+from itertools import count
+from operator import index
+
+
 empty_space = "_"
 class Field:
     def __init__(self, height, width):
@@ -13,26 +17,13 @@ class Field:
         self.field = [[f'{empty_space}' for w in range(self.width)] for h in range(self.height)]         
 
     def print_field(self):
-        # for h in range(self.height):
-        #     print(*[w[0]for w in range(self.width)])
-        
-        for item in self.field:
-            print
-            print(" ".join(map(str, item)))
-        # print(" ", end = "")
-        # for w in range(self.width):
-        #     print("", w, end="")
-        # print()
-        
-        # index = 0
-        # # while index != self.width:
-        #     # print(index, end="")
-        # for count, item in enumerate(field):
-        #     print(item, end="")
-        #     if count == (self.width*index)+(self.width-1):
-        #         print()
-        #         index+=1
-        # print(self.field)
+        print(end="  ")
+        for width in range(self.width):
+            print(width, end=" ")
+        print()
+        for height, item in enumerate(self.field):
+            print(height, " ".join(map(str, item)))
+
             
 f = Field(3,3)
 f.create_field()
