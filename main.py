@@ -3,10 +3,7 @@
 # print('Hráč 2')
 
 # field = []
-from itertools import count
-from operator import index
-
-
+import numpy as np
 empty_space = "_"
 class Field:
     def __init__(self, height, width):
@@ -14,7 +11,7 @@ class Field:
         self.width = width
     
     def create_field(self):
-        self.field = [[f'{empty_space}' for w in range(self.width)] for h in range(self.height)]         
+        self.field = np.array([[f'{empty_space}' for w in range(self.width)] for h in range(self.height)])         
 
     def print_field(self):
         print(end="  ")
@@ -24,11 +21,9 @@ class Field:
         for height, item in enumerate(self.field):
             print(height, " ".join(map(str, item)))
 
-            
 f = Field(3,3)
 f.create_field()
 f.print_field()
-
 class Player:
     def __init__(self):
         self.sign = ["X", "O"]
@@ -52,25 +47,21 @@ class Player:
     @y.setter
     def y(self, y):
         self._y = y
-        
 
 player = Player()
 
-# print(f.field)
-
-# while True:
-#     try:
-#         player.x = int(input("Zadaj x-súradnicu: "))
-#         player.y = int(input("Zadaj y-súradnicu: "))
-#         if player.x in range(f.width) and player.y in range(f.height):
-#             field[(player.x+(player.x*2))+player.y] = f"{player.sign[0]} "
-#             f.print_field()
-#             break
-#     except ValueError:
-#         print("Nerozumiem")
+while empty_space in f.field:
+    try:
+        player.x, player.y  = int(input("Zadaj x-súradnicu: ")), int(input("Zadaj y-súradnicu: "))
+        if player.x in range(f.width) and player.y in range(f.height):
+            f.field[player.x][player.y] = player.sign[0]
+            # field[(player.x+(player.x*2))+player.y] = f"{player.sign[0]} "
+            f.print_field()
+            # break
+    except ValueError:
+        print("Nerozumiem")
     
-#     print("Súradnice mimo rozsahu")    
+    print("Súradnice mimo rozsahu")   
 
-
-#OGITOVAT KOD
-#OINDEXOVAT POLE
+#Mením empty space na X, O 
+#OGITOVAT KÓD, PORIEŠIŤ ABY SA MI VYPLA HRA KEĎ BUDE POLE PLNÉ
