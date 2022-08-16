@@ -3,6 +3,7 @@
 # print('Hráč 2')
 
 # field = []
+from shutil import move
 import numpy as np
 empty_space = "_"
 class Field:
@@ -23,7 +24,6 @@ class Field:
 
 f = Field(3,3)
 f.create_field()
-f.print_field()
 class Player:
     def __init__(self):
         self.sign = ["X", "O"]
@@ -50,18 +50,25 @@ class Player:
 
 player = Player()
 
-while empty_space in f.field:
+def swap_players(ndx):
+    return players[(ndx+1)%len(players)]
+
+players = [2,1]
+
+for move in range(f.width*f.height):
+    p = swap_players(move)
+    print(f"{p}. hráč")
+    f.print_field()
     try:
         player.x, player.y  = int(input("Zadaj x-súradnicu: ")), int(input("Zadaj y-súradnicu: "))
-        if player.x in range(f.width) and player.y in range(f.height):
-            f.field[player.x][player.y] = player.sign[0]
-            # field[(player.x+(player.x*2))+player.y] = f"{player.sign[0]} "
-            f.print_field()
-            # break
+        if player.x in range(f.width) and player.y in range(f.height) and f.field[player.x][player.y] == empty_space:
+            f.field[player.x][player.y] = player.sign[p-1]
+            
+        else:
+            print("Zlé súradnice")         
     except ValueError:
-        print("Nerozumiem")
-    
-    print("Súradnice mimo rozsahu")   
+        print("Nerozumiem")    
+
 
 #Mením empty space na X, O 
-#OGITOVAT KÓD, PORIEŠIŤ ABY SA MI VYPLA HRA KEĎ BUDE POLE PLNÉ
+#RIEŠIM TO ABY SA MI MENILI HRÁČI
