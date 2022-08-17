@@ -50,25 +50,33 @@ class Player:
 
 player = Player()
 
-def swap_players(ndx):
-    return players[(ndx+1)%len(players)]
+# def swap_players(ndx):
+#     return players[(ndx+1)%len(players)]
 
 players = [2,1]
-
-for move in range(f.width*f.height):
-    p = swap_players(move)
-    print(f"{p}. hráč")
-    f.print_field()
-    try:
-        player.x, player.y  = int(input("Zadaj x-súradnicu: ")), int(input("Zadaj y-súradnicu: "))
-        if player.x in range(f.width) and player.y in range(f.height) and f.field[player.x][player.y] == empty_space:
-            f.field[player.x][player.y] = player.sign[p-1]
+round = 0
+while empty_space in f.field:
+    for p in range(len(players)):
+        # p = swap_players(move)
+        print(f"{round+1}. kolo")
+        print(f"{p+1}. hráč")
+        f.print_field()
+        try:
             
-        else:
-            print("Zlé súradnice")         
-    except ValueError:
-        print("Nerozumiem")    
+            player.x, player.y  = int(input("Zadaj x-súradnicu: ")), int(input("Zadaj y-súradnicu: "))
+            if player.x in range(f.width) and player.y in range(f.height) and f.field[player.x][player.y] == empty_space:
+                f.field[player.x][player.y] = player.sign[p]
+                
+            else:
+                print("Zlé súradnice")         
+                
+        
+        except ValueError:
+            print("Nerozumiem")    
+    
+    round+=1
+    
 
 
-#Mením empty space na X, O 
-#RIEŠIM TO ABY SA MI MENILI HRÁČI
+#Už som vyriešil to aby sa mi menili kolá
+#Teraz treba vyriešiť to aby sa mi nič nepripočítavalo keď dám zlú súradnicu
