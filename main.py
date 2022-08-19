@@ -1,9 +1,3 @@
-# print('Piškvorky')
-# print('Hráč 1')
-# print('Hráč 2')
-
-# field = []
-from shutil import move
 import numpy as np
 empty_space = "_"
 class Field:
@@ -50,33 +44,38 @@ class Player:
 
 player = Player()
 
-# def swap_players(ndx):
-#     return players[(ndx+1)%len(players)]
-
-players = [2,1]
-round = 0
-while empty_space in f.field:
-    for p in range(len(players)):
-        # p = swap_players(move)
-        print(f"{round+1}. kolo")
-        print(f"{p+1}. hráč")
+def rewriting():
+    try:
         f.print_field()
-        try:
-            
-            player.x, player.y  = int(input("Zadaj x-súradnicu: ")), int(input("Zadaj y-súradnicu: "))
-            if player.x in range(f.width) and player.y in range(f.height) and f.field[player.x][player.y] == empty_space:
-                f.field[player.x][player.y] = player.sign[p]
-                
-            else:
-                print("Zlé súradnice")         
-                
-        
-        except ValueError:
-            print("Nerozumiem")    
-    
-    round+=1
-    
+        player.x, player.y  = int(input("Zadaj x-súradnicu: ")), int(input("Zadaj y-súradnicu: "))
 
+        if player.x in range(f.width) and player.y in range(f.height) and f.field[player.x][player.y] == empty_space:
+           f.field[player.x][player.y] = player.sign[p]
+                    
+        else:
+            print("Zlé súradnice")  
+            rewriting()
+    except ValueError:
+        print("Nerozumiem")    
+        rewriting()
+    
+players = 2
+round = 1
+run = True
+
+while run:
+    for p in range(players):
+        if empty_space not in f.field:
+            f.print_field()
+            run = False
+        
+        else:
+            print(f"{round}. kolo")
+            print(f"{p+1}. hráč")
+            print()
+            rewriting()
+            print()
+    round+=1
 
 #Už som vyriešil to aby sa mi menili kolá
 #Teraz treba vyriešiť to aby sa mi nič nepripočítavalo keď dám zlú súradnicu
