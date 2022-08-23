@@ -6,7 +6,8 @@ class Field:
         self.width = width
     
     def create_field(self):
-        self.field = np.array([[f'{empty_space}' for w in range(self.width)] for h in range(self.height)])         
+        self.field = np.array([[f'{empty_space}' for w in range(self.width)] for h in range(self.height)])      
+        # self.field = [["_", "_", "X"], ["_", "_", "X"], ["_", "_", "X"]]   
 
     def print_field(self):
         print(end="  ")
@@ -59,23 +60,46 @@ def rewriting():
         print("Nerozumiem")    
         rewriting()
     
+X = player.sign[0]
+O = player.sign[1]
+
 players = 2
 round = 1
 run = True
 
-while run:
-    for p in range(players):
-        if empty_space not in f.field:
-            f.print_field()
-            run = False
-        
-        else:
-            print(f"{round}. kolo")
-            print(f"{p+1}. hráč")
-            print()
-            rewriting()
-            print()
-    round+=1
+def chkList(lst):
+    return len(set(lst)) == 1
 
-#Už som vyriešil to aby sa mi menili kolá
-#Teraz treba vyriešiť to aby sa mi nič nepripočítavalo keď dám zlú súradnicu
+p=0
+while run:
+    print(f"{round}. kolo")
+    print(f"{p+1}. hráč")
+    print()
+    rewriting()
+    print()
+
+    diags1 = [r[i] for i, r in enumerate(f.field)]
+    diags2 = [r[-i-1] for i, r in enumerate(f.field)]
+    col = [col[0] for col in f.field]
+    col1 = [col[1] for col in f.field]
+    col2 = [col[2] for col in f.field]
+    row = f.field[0]
+    row1 = f.field[1]
+    row2 = f.field[2]
+    all_options = [diags1, diags2, col, col1, col2, row, row1, row2]
+    
+    for i in all_options:
+        if chkList(i) == True and empty_space not in i:
+            f.print_field()
+            print(f"Vyhral {p+1}. hráč")
+            run = False
+            break
+    
+    p+=1
+    if p == players:
+        round+=1
+        p = 0
+    
+
+#Zistiť prečo mi vypisuje vyhral hráč 1 a vyhral hráč 2 keď mám vyplnenú columns
+#Musim zistit ako dostať row z f.field(Myslím že row = [f.field[0]])
