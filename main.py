@@ -7,7 +7,6 @@ class Field:
     
     def create_field(self):
         self.field = np.array([[f'{empty_space}' for w in range(self.width)] for h in range(self.height)])      
-        # self.field = [["_", "_", "X"], ["_", "_", "X"], ["_", "_", "X"]]   
 
     def print_field(self):
         print(end="  ")
@@ -95,11 +94,19 @@ while run:
             run = False
             break
     
+    if empty_space not in f.field:
+        f.print_field()
+        print(f"Remíza")
+        run = False
+        break
+    
     p+=1
     if p == players:
         round+=1
         p = 0
-    
+
+
+
 
 #Zistiť prečo mi vypisuje vyhral hráč 1 a vyhral hráč 2 keď mám vyplnenú columns
 #Musim zistit ako dostať row z f.field(Myslím že row = [f.field[0]])
