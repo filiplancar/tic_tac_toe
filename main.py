@@ -91,22 +91,27 @@ while run:
         if chkList(i) == True and empty_space not in i:
             f.print_field()
             print(f"Vyhral {p+1}. hráč")
-            run = False
-            break
+            user_input = int(input("Ďalšia hra?(0=Nie), (1=Ano): "))
+            run = user_input
+            if run != 0:
+                round = 1
+                p = -1
+                f.create_field()
+
     
     if empty_space not in f.field:
         f.print_field()
         print(f"Remíza")
-        run = False
-        break
-    
+        print()
+        user_input = int(input("Ďalšia hra?(0=Nie), (1=Ano)"))
+        run = user_input
+        if run != 0:
+            round = 1
+            p = -1
+            f.create_field()
+
     p+=1
-    if p == players:
+    if p >= players:
         round+=1
         p = 0
 
-
-
-
-#Zistiť prečo mi vypisuje vyhral hráč 1 a vyhral hráč 2 keď mám vyplnenú columns
-#Musim zistit ako dostať row z f.field(Myslím že row = [f.field[0]])
